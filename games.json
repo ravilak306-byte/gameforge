@@ -1,0 +1,16 @@
+{
+  "games_list": [
+    {
+      "title": "GTA V",
+      "category": "Action",
+      "description": "Open world action-adventure game.",
+      "req": "OS: Windows 10 | CPU: Intel Core i5 3470 | RAM: 8GB | GPU: NVIDIA GTX 660 2GB",
+      "thumbnail": "https://via.placeholder.com/300x150/001f3f/00a8ff?text=GTA+V",
+      "gallery": [
+        "https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+1",
+        "https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+2"
+      ],
+      "torrent": "#"
+    }
+  ]
+}
