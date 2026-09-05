@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameForge - Download PC Games</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- CSS ඩිසයින් ටික මෙතනම තියෙනවා -->
+    
     <style>
         * {
             margin: 0;
@@ -14,15 +14,55 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body{
+        body {
             background-color: #050505;
             color: #e0e0e0;
         }
-        <!-- Loading Screen -->
-<div id="loader" class="loader-container">
-    <div class="loader-spinner"></div>
-    <h2>Loading GameForge...</h2>
-</div>
+
+        /* Loading Screen Styles */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #1a1a1a;
+            border-top: 5px solid #00a8ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-container h2 {
+            color: #00a8ff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 18px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
 
         header {
             background: linear-gradient(90deg, #000428 0%, #004e92 100%);
@@ -74,6 +114,7 @@
             position: relative;
             padding-bottom: 5px;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
 
         nav .tab::after {
@@ -290,6 +331,12 @@
 </head>
 <body>
 
+    <!-- Loading Screen -->
+    <div id="loader" class="loader-container">
+        <div class="loader-spinner"></div>
+        <h2>Loading GameForge...</h2>
+    </div>
+
     <header>
         <div class="logo-section">
             <img src="logo.png" alt="Logo" class="site-logo"> 
@@ -311,33 +358,7 @@
     <div class="container">
         <h2>Latest Games</h2>
         <div class="games-grid" id="games-container">
-            
-            <div class="game-card" data-category="action" 
-                 data-title="Grand Theft Auto V" 
-                 data-desc="Explore the award-winning world of Los Santos and Blaine County in the ultimate open-world experience." 
-                 data-req="OS: Windows 10 64 Bit | CPU: Intel Core i5 3470 | RAM: 8GB | GPU: NVIDIA GTX 660 2GB"
-                 data-images="https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+1,https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+2"
-                 data-torrent="#">
-                <img src="https://via.placeholder.com/300x150/001f3f/00a8ff?text=GTA+V" alt="GTA V">
-                <div class="game-info">
-                    <h3>GTA V</h3>
-                    <p>Open world action-adventure game.</p>
-                </div>
-            </div>
-
-            <div class="game-card" data-category="horror"
-                 data-title="Dying Light" 
-                 data-desc="A first-person action survival game set in a post-apocalyptic open world overrun by flesh-hungry zombies." 
-                 data-req="OS: Windows 10 | CPU: Intel Core i5-2500 | RAM: 4GB | GPU: NVIDIA GeForce GTX 560"
-                 data-images="https://via.placeholder.com/400x200/001f3f/00a8ff?text=Zombie+Kill,https://via.placeholder.com/400x200/001f3f/00a8ff?text=Parkour"
-                 data-torrent="#">
-                <img src="https://via.placeholder.com/300x150/001f3f/00a8ff?text=Dying+Light" alt="Dying Light">
-                <div class="game-info">
-                    <h3>Dying Light</h3>
-                    <p>Survival horror zombie game.</p>
-                </div>
-            </div>
-
+            <!-- Games ටික Admin Panel එකෙන් සහ Database එකෙන් මෙතනට Load වෙයි -->
         </div>
     </div>
 
@@ -355,7 +376,7 @@
                     <h3>System Requirements</h3>
                     <ul id="modal-req"></ul>
                     
-                    <a href="#" id="modal-download" class="download-btn">Download Torrent</a>
+                    <a href="#" id="modal-download" class="download-btn" target="_blank">Download Torrent</a>
                 </div>
                 
                 <div class="modal-gallery">
@@ -366,15 +387,13 @@
         </div>
     </div>
 
-    <!-- JS කෝඩ් ටික මෙතනම තියෙනවා -->
     <script>
-        // Database (games.json) එකෙන් Games ඇදලා ගැනීම
         async function loadGames() {
             try {
                 const response = await fetch('games.json');
                 const data = await response.json();
                 const container = document.getElementById('games-container');
-                container.innerHTML = ''; // පරණ Hardcoded ඒව අයින් කරනවා
+                container.innerHTML = ''; 
 
                 if(data.games_list) {
                     data.games_list.forEach(game => {
@@ -404,12 +423,23 @@
                 }
                 
                 setupInteractions();
+
+                // Loading screen එක අයින් කිරීම
+                setTimeout(() => {
+                    const loader = document.getElementById('loader');
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 500);
+                }, 800);
+
             } catch (error) {
                 console.log("Error loading games:", error);
+                // Error එකක් ආවත් Loader එක අයින් වෙන්න දානවා
+                document.getElementById('loader').style.display = 'none';
             }
         }
 
-        // Modal, Search සහ Tabs වැඩ කරන කොටස
         function setupInteractions() {
             const searchBar = document.getElementById('searchBar');
             if(searchBar) {
@@ -428,7 +458,6 @@
                 });
             }
 
-            // අලුත් Tab Filter කෑල්ල (Action, RPG, etc.)
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => {
                 tab.addEventListener('click', function(e) {
@@ -497,5 +526,6 @@
 
         window.onload = loadGames;
     </script>
+
 </body>
 </html>
