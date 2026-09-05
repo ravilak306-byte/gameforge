@@ -1,0 +1,24 @@
+backend:
+  name: git-gateway
+  branch: main
+media_folder: "images"
+public_folder: "images"
+collections:
+  - name: "database"
+    label: "Game Database"
+    files:
+      - label: "Games List"
+        name: "games"
+        file: "games.json"
+        fields:
+          - label: "Games"
+            name: "games_list"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Category", name: "category", widget: "select", options: ["Action", "RPG", "Racing", "Horror"]}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "System Requirements (Separate by |)", name: "req", widget: "string"}
+              - {label: "Thumbnail Image", name: "thumbnail", widget: "image"}
+              - {label: "Gallery Images", name: "gallery", widget: "list", field: {label: "Image", name: "img", widget: "image"}}
+              - {label: "Torrent Link", name: "torrent", widget: "string"}
