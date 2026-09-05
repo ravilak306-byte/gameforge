@@ -363,66 +363,134 @@
 
     <!-- JS කෝඩ් ටික මෙතනම තියෙනවා -->
     <script>
-        document.getElementById('searchBar').addEventListener('keyup', function(e) {
-            let searchQuery = e.target.value.toLowerCase();
-            let gameCards = document.querySelectorAll('.game-card');
-            
-            gameCards.forEach(card => {
-                let gameTitle = card.querySelector('h3').innerText.toLowerCase();
-                if(gameTitle.includes(searchQuery)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
+        // Database (games.json) එකෙන් Games ඇදලා ගැනීම
+        async function loadGames() {
+            try {
+                const response = await fetch('games.json');
+                const data = await response.json();
+                const container = document.getElementById('games-container');
+                container.innerHTML = ''; // පරණ Hardcoded ඒව අයින් කරනවා
+
+                if(data.games_list) {
+                    data.games_list.forEach(game => {
+                        let galleryLinks = "";
+                        if(game.gallery) {
+                            galleryLinks = game.gallery.map(g => g.img).join(',');
+                        }
+
+                        let card = document.createElement('div');
+                        card.className = 'game-card';
+                        card.setAttribute('data-category', game.category ? game.category.toLowerCase() : 'action');
+                        card.setAttribute('data-title', game.title);
+                        card.setAttribute('data-desc', game.description);
+                        card.setAttribute('data-req', game.req);
+                        card.setAttribute('data-images', galleryLinks);
+                        card.setAttribute('data-torrent', game.torrent);
+
+                        card.innerHTML = `
+                            <img src="${game.thumbnail}" alt="${game.title}">
+                            <div class="game-info">
+                                <h3>${game.title}</h3>
+                                <p>${game.description}</p>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
                 }
-            });
-        });
-
-        const modal = document.getElementById("gameModal");
-        const closeBtn = document.querySelector(".close-btn");
-        const gameCards = document.querySelectorAll(".game-card");
-
-        gameCards.forEach(card => {
-            card.addEventListener("click", function() {
-                const title = this.getAttribute("data-title");
-                const desc = this.getAttribute("data-desc");
-                const req = this.getAttribute("data-req");
-                const images = this.getAttribute("data-images").split(",");
-                const torrent = this.getAttribute("data-torrent");
-
-                document.getElementById("modal-title").innerText = title;
-                document.getElementById("modal-desc").innerText = desc;
-                document.getElementById("modal-download").href = torrent;
-
-                const reqList = document.getElementById("modal-req");
-                reqList.innerHTML = ""; 
-                req.split("|").forEach(item => {
-                    let li = document.createElement("li");
-                    li.innerText = item.trim();
-                    reqList.appendChild(li);
-                });
-
-                const gallery = document.getElementById("modal-images");
-                gallery.innerHTML = ""; 
-                images.forEach(imgSrc => {
-                    let img = document.createElement("img");
-                    img.src = imgSrc.trim();
-                    gallery.appendChild(img);
-                });
-
-                modal.style.display = "block";
-            });
-        });
-
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+                
+                setupInteractions();
+            } catch (error) {
+                console.log("Error loading games:", error);
             }
         }
-    </script>
 
+        // Modal, Search සහ Tabs වැඩ කරන කොටස
+        function setupInteractions() {
+            const searchBar = document.getElementById('searchBar');
+            if(searchBar) {
+                searchBar.addEventListener('keyup', function(e) {
+                    let searchQuery = e.target.value.toLowerCase();
+                    let gameCards = document.querySelectorAll('.game-card');
+                    
+                    gameCards.forEach(card => {
+                        let gameTitle = card.querySelector('h3').innerText.toLowerCase();
+                        if(gameTitle.includes(searchQuery)) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                });
+            }
+
+            // අලුත් Tab Filter කෑල්ල (Action, RPG, etc.)
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    let filter = this.innerText.toLowerCase();
+                    let gameCards = document.querySelectorAll('.game-card');
+                    
+                    gameCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                });
+            });
+
+            const modal = document.getElementById("gameModal");
+            const closeBtn = document.querySelector(".close-btn");
+            const gameCards = document.querySelectorAll(".game-card");
+
+            gameCards.forEach(card => {
+                card.addEventListener("click", function() {
+                    document.getElementById("modal-title").innerText = this.getAttribute("data-title");
+                    document.getElementById("modal-desc").innerText = this.getAttribute("data-desc");
+                    document.getElementById("modal-download").href = this.getAttribute("data-torrent");
+
+                    const reqList = document.getElementById("modal-req");
+                    reqList.innerHTML = ""; 
+                    let reqData = this.getAttribute("data-req");
+                    if(reqData) {
+                        reqData.split("|").forEach(item => {
+                            let li = document.createElement("li");
+                            li.innerText = item.trim();
+                            reqList.appendChild(li);
+                        });
+                    }
+
+                    const gallery = document.getElementById("modal-images");
+                    gallery.innerHTML = ""; 
+                    let imgData = this.getAttribute("data-images");
+                    if(imgData) {
+                        imgData.split(",").forEach(imgSrc => {
+                            if(imgSrc.trim() !== "") {
+                                let img = document.createElement("img");
+                                img.src = imgSrc.trim();
+                                gallery.appendChild(img);
+                            }
+                        });
+                    }
+
+                    modal.style.display = "block";
+                });
+            });
+
+            if(closeBtn) {
+                closeBtn.onclick = function() { modal.style.display = "none"; }
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) { modal.style.display = "none"; }
+            }
+        }
+
+        window.onload = loadGames;
+    </script>
 </body>
 </html>
