@@ -2,28 +2,39 @@
   "games_list": [
     {
       "title": "GTA V",
-      "category": "Action / Open World",
+      "category": "Action",
       "description": "Open world action-adventure game.",
-      "req": "OS: Windows 10 | RAM: 8GB | GPU: GTX 660",
-      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.YYA1QSw8shFEvZFpR1QSEAHaEK?r=0&rs=1&pid=ImgDetMain",
+      "req": "OS: Windows 10 64 Bit | CPU: Intel Core i5 3470 | RAM: 8GB | GPU: NVIDIA GTX 660 2GB",
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.YYA1QSw8shFEvZFpR1QsEAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
       "gallery": [
-        "https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+1",
-        "https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+2"
+        "https://tse2.mm.bing.net/th/id/OIP.YYA1QSw8shFEvZFpR1QsEAHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
+        "https://tse2.mm.bing.net/th/id/OIP.P7W6XR0rB1MWKWDM6saA2gHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
       ],
       "torrent": "#"
-    }
-  ],
-  "movies_list": [
+    },
     {
-      "title": "Inception",
-      "category": "Sci-Fi / Thriller",
-      "description": "A thief who steals corporate secrets through the use of dream-sharing technology...",
-      "actors": "Leonardo DiCaprio | Joseph Gordon-Levitt | Elliot Page",
-      "thumbnail": "https://via.placeholder.com/200x300/1a1a1a/00a8ff?text=Inception",
+      "title": "Dying Light",
+      "category": "RPG",
+      "description": "Survival horror zombie game. niga",
+      "req": "OS: Windows 10 | CPU: Intel Core i5-2500 | RAM: 4GB | GPU: NVIDIA GeForce GTX 560",
+      "thumbnail": "https://cdn1.epicgames.com/item/2c42520d342a46d7a6e0cfa77b4715de/EGS_DyingLightStandardEdition_Techland_Editions_S1_2560x1440-2967a86bdce109ba6c772176187353d1",
       "gallery": [
-        "https://via.placeholder.com/400x200/1a1a1a/00a8ff?text=Scene+1"
+        {
+          "img": "https://via.placeholder.com/400x200/001f3f/00a8ff?text=Zombie+Kill"
+        }
       ],
       "torrent": "#"
+    },
+    {
+      "title": "sleeping dogs",
+      "category": "Action",
+      "description": "test",
+      "req": "ad",
+      "thumbnail": "https://i.ytimg.com/vi/z0t1qjnacSs/maxresdefault.jpg",
+      "gallery": [
+        "https://i.ytimg.com/vi/z0t1qjnacSs/maxresdefault.jpg"
+      ],
+      "torrent": "https://i.ytimg.com/vi/z0t1qjnacSs/maxresdefault.jpg"
     }
   ]
 }
