@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="s0h-komVBU6j0aspEu8pg1bReURPac6H2TldzWpUiag" />
     <title>EpicForge - Download PC Games & Movies</title>
+    <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -12,7 +14,8 @@
         
         /* Navigation & Tabs */
         header { padding: 20px; text-align: center; background-color: #111; border-bottom: 2px solid #00a8ff; }
-        .tabs { margin-top: 15px; }
+        header h1 { color: #fff; margin-bottom: 15px; }
+        .tabs { margin-top: 10px; }
         .tab-btn { background: #222; color: white; border: none; padding: 10px 30px; font-size: 16px; cursor: pointer; border-radius: 5px; margin: 0 5px; transition: 0.3s; }
         .tab-btn.active, .tab-btn:hover { background: #00a8ff; color: #000; font-weight: bold; }
 
@@ -40,11 +43,12 @@
 </head>
 <body>
 
-    <!-- Welcome Message Popup -->
+    <!-- Welcome Message -->
     <div id="welcomeAlert" class="welcome-msg">
         🎉 Welcome to EpicForge! Free Games & Movies!
     </div>
 
+    <!-- Header & Tabs -->
     <header>
         <h1>EpicForge</h1>
         <div class="tabs">
@@ -53,13 +57,11 @@
         </div>
     </header>
 
-    <!-- Games Section -->
+    <!-- Content Sections -->
     <div id="games-section" class="container active"></div>
-
-    <!-- Movies Section -->
     <div id="movies-section" class="container"></div>
 
-    <!-- Details Modal (Common for both) -->
+    <!-- Popup Modal -->
     <div id="details-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -68,23 +70,23 @@
             <h4 id="info-title" style="color:#00a8ff;">System Requirements:</h4>
             <ul id="modal-info" style="margin:10px 0 15px 20px; color:#ccc;"></ul>
             <div id="modal-images" class="modal-images"></div>
-            <a id="modal-download" href="#" class="download-btn">Download Now</a>
+            <a id="modal-download" href="#" class="download-btn" target="_blank">Download Now</a>
         </div>
     </div>
 
     <script>
-        // Show Welcome Message once per session
+        // 1. Welcome Message Logic (Shows only once per session)
         window.onload = function() {
             if(!sessionStorage.getItem('welcomed')) {
                 let alertBox = document.getElementById('welcomeAlert');
                 alertBox.style.display = 'block';
-                setTimeout(() => { alertBox.style.display = 'none'; }, 4000); // Hides after 4 seconds
+                setTimeout(() => { alertBox.style.display = 'none'; }, 4000);
                 sessionStorage.setItem('welcomed', 'true');
             }
             fetchData();
         };
 
-        // Tab Switching Logic
+        // 2. Tab Switching Logic
         function switchTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.container').forEach(sec => sec.classList.remove('active'));
@@ -93,7 +95,7 @@
             document.getElementById(tab + '-section').classList.add('active');
         }
 
-        // Fetch Data from games.json
+        // 3. Fetch Data from JSON
         function fetchData() {
             fetch('games.json')
                 .then(res => res.json())
@@ -104,12 +106,15 @@
                 .catch(err => console.log('Error loading data:', err));
         }
 
-        // Render Cards
+        // 4. Render Cards onto the page
         function renderItems(items, containerId, type) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
+            
             items.forEach(item => {
                 let infoData = type === 'game' ? item.req : item.actors;
+                
+                // Image fix applied here
                 let galleryLinks = "";
                 if(item.gallery) {
                     galleryLinks = item.gallery.map(g => g.img ? g.img : g).join(',');
@@ -121,18 +126,18 @@
                     <img src="${item.thumbnail}" alt="${item.title}">
                     <h3>${item.title}</h3>
                 `;
-                // Click Event to open Modal
+                
                 card.onclick = () => openModal(item.title, item.description, infoData, galleryLinks, item.torrent, type);
                 container.appendChild(card);
             });
         }
 
-        // Open Modal
+        // 5. Open Modal Logic
         function openModal(title, desc, info, images, torrent, type) {
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-desc').innerText = desc;
             
-            // Change title based on Game or Movie
+            // Toggle title between Requirements and Actors
             document.getElementById('info-title').innerText = type === 'game' ? "System Requirements:" : "Main Actors:";
             
             let infoList = document.getElementById('modal-info');
@@ -161,9 +166,17 @@
             document.getElementById('details-modal').style.display = 'flex';
         }
 
-        // Close Modal
+        // 6. Close Modal Logic
         function closeModal() {
             document.getElementById('details-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            let modal = document.getElementById('details-modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 </body>
