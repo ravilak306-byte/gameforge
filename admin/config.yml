@@ -5,13 +5,13 @@ media_folder: "images"
 public_folder: "images"
 collections:
   - name: "database"
-    label: "Game Database"
+    label: "Game & Movie Database"
     files:
-      - label: "Games List"
+      - label: "Database File"
         name: "games"
         file: "games.json"
         fields:
-          - label: "Games"
+          - label: "Games List"
             name: "games_list"
             widget: "list"
             fields:
@@ -22,3 +22,14 @@ collections:
               - {label: "Thumbnail Image", name: "thumbnail", widget: "image"}
               - {label: "Gallery Images", name: "gallery", widget: "list", field: {label: "Image", name: "img", widget: "image"}}
               - {label: "Torrent Link", name: "torrent", widget: "string"}
+          - label: "Movies List"
+            name: "movies_list"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Category", name: "category", widget: "select", options: ["Action", "Sci-Fi", "Comedy", "Horror", "Thriller"]}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Main Actors (Separate by |)", name: "actors", widget: "string"}
+              - {label: "Thumbnail Image", name: "thumbnail", widget: "image"}
+              - {label: "Gallery Images", name: "gallery", widget: "list", field: {label: "Image", name: "img", widget: "image"}}
+              - {label: "Download Link", name: "torrent", widget: "string"}
