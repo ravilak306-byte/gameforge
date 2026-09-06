@@ -50,10 +50,7 @@
             margin-bottom: 20px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .loader-container h2 {
             color: #00a8ff;
@@ -63,19 +60,22 @@
             animation: pulse 1.5s infinite;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* HEADER STYLES */
+        header {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 3px solid #00a8ff;
+            background-color: #020202;
         }
 
-        header {
+        .top-header {
             background: linear-gradient(90deg, #000428 0%, #004e92 100%);
             padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #00a8ff;
             flex-wrap: wrap;
             gap: 20px;
         }
@@ -106,25 +106,25 @@
             gap: 30px;
         }
 
-        nav {
+        nav.main-nav {
             display: flex;
             gap: 20px;
         }
 
-        /* Top Main Tabs Styling */
-        nav .main-tab {
+        nav.main-nav .main-tab {
             color: #a9d6e5;
             text-decoration: none;
             font-weight: bold;
-            font-size: 17px;
+            font-size: 18px;
             position: relative;
             padding-bottom: 5px;
             transition: color 0.3s ease;
             cursor: pointer;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        nav .main-tab::after {
+        nav.main-nav .main-tab::after {
             content: '';
             position: absolute;
             width: 0;
@@ -135,11 +135,11 @@
             transition: width 0.3s ease;
         }
 
-        nav .main-tab:hover, nav .main-tab.active {
+        nav.main-nav .main-tab:hover, nav.main-nav .main-tab.active {
             color: #ffffff;
         }
 
-        nav .main-tab:hover::after, nav .main-tab.active::after {
+        nav.main-nav .main-tab:hover::after, nav.main-nav .main-tab.active::after {
             width: 100%;
         }
 
@@ -160,6 +160,28 @@
             background-color: #1a1a1a;
         }
 
+        /* SUB-NAVIGATION (Categories) */
+        .sub-nav {
+            padding: 12px 40px;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .sub-nav .sub-tab {
+            color: #888;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .sub-nav .sub-tab.active, .sub-nav .sub-tab:hover {
+            color: #00a8ff;
+        }
+
         /* Slideshow Styles */
         .slideshow-container {
             max-width: 1200px;
@@ -172,12 +194,7 @@
         }
 
         .slide { display: none; }
-
-        .slide img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
+        .slide img { width: 100%; height: 400px; object-fit: cover; }
 
         .prev, .next {
             cursor: pointer;
@@ -211,12 +228,7 @@
             border-radius: 5px;
         }
         
-        .text span {
-            font-size: 16px;
-            color: #00a8ff;
-            font-weight: normal;
-        }
-
+        .text span { font-size: 16px; color: #00a8ff; font-weight: normal; }
         .fade { animation: fade 1.5s; }
         @keyframes fade { from {opacity: .4} to {opacity: 1} }
 
@@ -224,30 +236,6 @@
             padding: 20px 40px 40px 40px;
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        /* Category Tabs (Below Slider) */
-        .category-tabs { 
-            display: flex; 
-            gap: 12px; 
-            margin-bottom: 25px; 
-            flex-wrap: wrap; 
-        }
-        .cat-btn { 
-            background: #121212; 
-            color: #aaa; 
-            border: 1px solid #333; 
-            padding: 8px 22px; 
-            font-size: 14px; 
-            cursor: pointer; 
-            border-radius: 20px; 
-            transition: 0.3s; 
-            font-weight: bold; 
-        }
-        .cat-btn.active, .cat-btn:hover { 
-            background: #004e92; 
-            color: #fff; 
-            border-color: #00a8ff; 
         }
 
         .container h2 {
@@ -284,20 +272,9 @@
             object-fit: cover;
         }
 
-        .game-info {
-            padding: 20px;
-        }
-
-        .game-info h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .game-info p {
-            font-size: 14px;
-            color: #aaaaaa;
-            margin-bottom: 15px;
-        }
+        .game-info { padding: 20px; }
+        .game-info h3 { color: #ffffff; margin-bottom: 10px; }
+        .game-info p { font-size: 14px; color: #aaaaaa; margin-bottom: 15px; }
 
         /* Modal Popup Styles */
         .modal {
@@ -332,92 +309,28 @@
             to {opacity: 1; transform: translateY(0);}
         }
 
-        .close-btn {
-            color: #ff3333;
-            float: right;
-            font-size: 32px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .close-btn { color: #ff3333; float: right; font-size: 32px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: #ff6666; transform: scale(1.1); }
+        .modal-content h2 { color: #ffffff; border-bottom: 2px solid #004e92; padding-bottom: 10px; margin-bottom: 20px; }
 
-        .close-btn:hover {
-            color: #ff6666;
-            transform: scale(1.1);
-        }
-
-        .modal-content h2 {
-            color: #ffffff;
-            border-bottom: 2px solid #004e92;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .modal-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .modal-info h3, .modal-gallery h3 {
-            color: #00a8ff;
-            margin-bottom: 10px;
-        }
-
-        .modal-info p {
-            color: #cccccc;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .modal-info ul {
-            color: #cccccc;
-            list-style-type: square;
-            margin-left: 20px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .gallery-images {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .gallery-images img {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid #1a1a1a;
-        }
-
-        .download-btn {
-            display: inline-block;
-            background-color: #004e92;
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
-            text-align: center;
-        }
-
-        .download-btn:hover {
-            background-color: #00a8ff;
-        }
+        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .modal-info h3, .modal-gallery h3 { color: #00a8ff; margin-bottom: 10px; }
+        .modal-info p { color: #cccccc; font-size: 15px; line-height: 1.6; margin-bottom: 20px; }
+        .modal-info ul { color: #cccccc; list-style-type: square; margin-left: 20px; line-height: 1.8; margin-bottom: 20px; }
+        .gallery-images { display: flex; flex-direction: column; gap: 15px; max-height: 350px; overflow-y: auto; padding-right: 10px; }
+        .gallery-images img { width: 100%; border-radius: 8px; border: 1px solid #1a1a1a; }
+        .download-btn { display: inline-block; background-color: #004e92; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; text-align: center; }
+        .download-btn:hover { background-color: #00a8ff; }
 
         @media (max-width: 768px) {
             .modal-grid { grid-template-columns: 1fr; }
             .modal-content { width: 95%; margin: 10% auto; padding: 20px; }
             .slide img { height: 250px; }
             .text { font-size: 18px; bottom: 15px; left: 15px; }
-            header { flex-direction: column; text-align: center; }
+            .top-header { flex-direction: column; text-align: center; }
             .nav-section { flex-direction: column; width: 100%; }
             #searchBar { width: 100%; }
+            .sub-nav { justify-content: center; }
         }
     </style>
 </head>
@@ -435,18 +348,38 @@
     </div>
 
     <header>
-        <div class="logo-section">
-            <img src="logo.png" alt="Logo" class="site-logo"> 
-            <h1>GameForge</h1>
+        <!-- Top Main Navigation -->
+        <div class="top-header">
+            <div class="logo-section">
+                <img src="logo.png" alt="Logo" class="site-logo"> 
+                <h1>GameForge</h1>
+            </div>
+            
+            <div class="nav-section">
+                <nav class="main-nav">
+                    <a href="#" class="main-tab active" onclick="switchMainTab('games', event)">🎮 PC Games</a>
+                    <a href="#" class="main-tab" onclick="switchMainTab('movies', event)">🎬 Movies</a>
+                </nav>
+                <input type="text" id="searchBar" placeholder="Search games...">
+            </div>
         </div>
-        
-        <div class="nav-section">
-            <!-- TOP NAV: Main Tabs (Swapped positions) -->
-            <nav>
-                <a href="#" class="main-tab active" onclick="switchMainTab('games', event)">🎮 PC Games</a>
-                <a href="#" class="main-tab" onclick="switchMainTab('movies', event)">🎬 Movies</a>
-            </nav>
-            <input type="text" id="searchBar" placeholder="Search games...">
+
+        <!-- Dynamic Sub Navigation (Categories) -->
+        <div class="sub-nav" id="game-categories">
+            <a href="#" class="sub-tab active" onclick="filterCategory('all', 'games', event)">All Games</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('action', 'games', event)">Action</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('rpg', 'games', event)">RPG</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('racing', 'games', event)">Racing</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('horror', 'games', event)">Horror</a>
+        </div>
+
+        <div class="sub-nav" id="movie-categories" style="display: none;">
+            <a href="#" class="sub-tab active" onclick="filterCategory('all', 'movies', event)">All Movies</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('action', 'movies', event)">Action</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('sci-fi', 'movies', event)">Sci-Fi</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('comedy', 'movies', event)">Comedy</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('horror', 'movies', event)">Horror</a>
+            <a href="#" class="sub-tab" onclick="filterCategory('thriller', 'movies', event)">Thriller</a>
         </div>
     </header>
 
@@ -470,26 +403,6 @@
     </div>
 
     <div class="container">
-        
-        <!-- Game Categories (Visible by default) -->
-        <div class="category-tabs" id="game-categories">
-            <button class="cat-btn active" onclick="filterCategory('all', 'games', event)">All</button>
-            <button class="cat-btn" onclick="filterCategory('action', 'games', event)">Action</button>
-            <button class="cat-btn" onclick="filterCategory('rpg', 'games', event)">RPG</button>
-            <button class="cat-btn" onclick="filterCategory('racing', 'games', event)">Racing</button>
-            <button class="cat-btn" onclick="filterCategory('horror', 'games', event)">Horror</button>
-        </div>
-
-        <!-- Movie Categories (Hidden by default) -->
-        <div class="category-tabs" id="movie-categories" style="display: none;">
-            <button class="cat-btn active" onclick="filterCategory('all', 'movies', event)">All</button>
-            <button class="cat-btn" onclick="filterCategory('action', 'movies', event)">Action</button>
-            <button class="cat-btn" onclick="filterCategory('sci-fi', 'movies', event)">Sci-Fi</button>
-            <button class="cat-btn" onclick="filterCategory('comedy', 'movies', event)">Comedy</button>
-            <button class="cat-btn" onclick="filterCategory('horror', 'movies', event)">Horror</button>
-            <button class="cat-btn" onclick="filterCategory('thriller', 'movies', event)">Thriller</button>
-        </div>
-
         <h2 id="section-title">Latest Games</h2>
         
         <!-- Games Grid -->
@@ -535,23 +448,22 @@
             }
         }
 
-        // Main Tab Switch (Games vs Movies) in Header
+        // Switch between PC Games & Movies (Changes Sub-Menu and Main Grid)
         function switchMainTab(tab, event) {
             if(event) event.preventDefault();
 
-            // Update Top Header Tabs Active State
+            // Highlight Top Tabs
             document.querySelectorAll('.main-tab').forEach(btn => btn.classList.remove('active'));
             if(event) event.target.classList.add('active');
 
-            // Reset Sub Category Tabs to 'All'
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('#game-categories .cat-btn').classList.add('active');
-            document.querySelector('#movie-categories .cat-btn').classList.add('active');
+            // Reset Sub Tabs to 'All'
+            document.querySelectorAll('.sub-tab').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('#game-categories .sub-tab').classList.add('active');
+            document.querySelector('#movie-categories .sub-tab').classList.add('active');
 
-            // Show all items again when switching main tabs
+            // Reset Grids to show all cards
             document.querySelectorAll('.game-card').forEach(card => card.style.display = 'block');
 
-            // Switch Containers and Update Search Placeholder
             if(tab === 'games') {
                 document.getElementById('games-container').style.display = 'grid';
                 document.getElementById('movies-container').style.display = 'none';
@@ -569,14 +481,14 @@
             }
         }
 
-        // Filter Categories for Games/Movies
+        // Sub-menu filtering logic
         function filterCategory(category, type, event) {
             if(event) event.preventDefault();
             
-            // Highlight clicked category tab
+            // Highlight clicked sub-tab
             let containerId = type === 'games' ? 'game-categories' : 'movie-categories';
             let catContainer = document.getElementById(containerId);
-            catContainer.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            catContainer.querySelectorAll('.sub-tab').forEach(btn => btn.classList.remove('active'));
             if(event) event.target.classList.add('active');
             
             // Filter Cards
@@ -597,46 +509,33 @@
         // Slideshow Logic
         let slideIndex = 0;
         let slideTimeout;
-
         function showSlides() {
             let i;
             let slides = document.getElementsByClassName("slide");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
+            for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
             slideIndex++;
             if (slideIndex > slides.length) {slideIndex = 1}
-            if (slides[slideIndex-1]) {
-                slides[slideIndex-1].style.display = "block";
-            }
+            if (slides[slideIndex-1]) { slides[slideIndex-1].style.display = "block"; }
             slideTimeout = setTimeout(showSlides, 4000); 
         }
-
         function plusSlides(n) {
             clearTimeout(slideTimeout);
             showSlideManual(slideIndex += n);
         }
-
         function showSlideManual(n) {
             let i;
             let slides = document.getElementsByClassName("slide");
             if (n > slides.length) {slideIndex = 1}
             if (n < 1) {slideIndex = slides.length}
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            if (slides[slideIndex-1]) {
-                slides[slideIndex-1].style.display = "block";
-            }
+            for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+            if (slides[slideIndex-1]) { slides[slideIndex-1].style.display = "block"; }
             slideTimeout = setTimeout(showSlides, 4000);
         }
 
-        // Generate Card HTML
+        // Generate HTML Card
         function createCardHTML(item, type) {
             let galleryLinks = "";
-            if(item.gallery) {
-                galleryLinks = item.gallery.map(g => g.img ? g.img : g).join(',');
-            }
+            if(item.gallery) { galleryLinks = item.gallery.map(g => g.img ? g.img : g).join(','); }
 
             let card = document.createElement('div');
             card.className = 'game-card';
@@ -660,7 +559,7 @@
             return card;
         }
 
-        // Database Loading Logic
+        // Load DB Logic
         async function loadGames() {
             try {
                 const response = await fetch('games.json');
@@ -672,26 +571,19 @@
                 moviesContainer.innerHTML = '';
 
                 if(data.games_list) {
-                    data.games_list.forEach(game => {
-                        gamesContainer.appendChild(createCardHTML(game, 'game'));
-                    });
+                    data.games_list.forEach(game => { gamesContainer.appendChild(createCardHTML(game, 'game')); });
                 }
 
                 if(data.movies_list) {
-                    data.movies_list.forEach(movie => {
-                        moviesContainer.appendChild(createCardHTML(movie, 'movie'));
-                    });
+                    data.movies_list.forEach(movie => { moviesContainer.appendChild(createCardHTML(movie, 'movie')); });
                 }
                 
                 setupInteractions();
 
-                // Hide Loading Screen
                 setTimeout(() => {
                     const loader = document.getElementById('loader');
                     loader.style.opacity = '0';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                    }, 500);
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
                 }, 800);
 
             } catch (error) {
@@ -705,8 +597,6 @@
             if(searchBar) {
                 searchBar.addEventListener('keyup', function(e) {
                     let searchQuery = e.target.value.toLowerCase();
-                    
-                    // Search only in the currently active tab (Games or Movies)
                     let isGames = document.getElementById('games-container').style.display !== 'none';
                     let activeContainer = isGames ? document.getElementById('games-container') : document.getElementById('movies-container');
                     let activeCards = activeContainer.querySelectorAll('.game-card');
@@ -735,7 +625,6 @@
 
                     let type = this.getAttribute("data-type");
                     let infoData = type === 'movie' ? this.getAttribute("data-actors") : this.getAttribute("data-req");
-                    
                     reqTitle.innerText = type === 'movie' ? "Main Actors" : "System Requirements";
 
                     const reqList = document.getElementById("modal-req");
@@ -765,12 +654,8 @@
                 });
             });
 
-            if(closeBtn) {
-                closeBtn.onclick = function() { modal.style.display = "none"; }
-            }
-            window.onclick = function(event) {
-                if (event.target == modal) { modal.style.display = "none"; }
-            }
+            if(closeBtn) { closeBtn.onclick = function() { modal.style.display = "none"; } }
+            window.onclick = function(event) { if (event.target == modal) { modal.style.display = "none"; } }
         }
 
         window.onload = function() {
@@ -779,6 +664,5 @@
             showSlides();
         };
     </script>
-
 </body>
 </html>
