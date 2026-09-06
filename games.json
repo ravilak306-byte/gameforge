@@ -2,11 +2,14 @@
   "games_list": [
     {
       "title": "GTA V",
-      "category": "Action",
+      "category": "Action / Open World",
       "description": "Open world action-adventure game.",
       "req": "OS: Windows 10 | RAM: 8GB | GPU: GTX 660",
-      "thumbnail": "link.jpg",
-      "gallery": [ "link1.jpg", "link2.jpg" ],
+      "thumbnail": "https://tse2.mm.bing.net/th/id/OIP.YYA1QSw8shFEvZFpR1QSEAHaEK?r=0&rs=1&pid=ImgDetMain",
+      "gallery": [
+        "https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+1",
+        "https://via.placeholder.com/400x200/001f3f/00a8ff?text=Gameplay+2"
+      ],
       "torrent": "#"
     }
   ],
@@ -16,8 +19,10 @@
       "category": "Sci-Fi / Thriller",
       "description": "A thief who steals corporate secrets through the use of dream-sharing technology...",
       "actors": "Leonardo DiCaprio | Joseph Gordon-Levitt | Elliot Page",
-      "thumbnail": "movie-thumb.jpg",
-      "gallery": [ "movie-pic1.jpg", "movie-pic2.jpg" ],
+      "thumbnail": "https://via.placeholder.com/200x300/1a1a1a/00a8ff?text=Inception",
+      "gallery": [
+        "https://via.placeholder.com/400x200/1a1a1a/00a8ff?text=Scene+1"
+      ],
       "torrent": "#"
     }
   ]
