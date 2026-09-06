@@ -3,651 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="0g1eHTTUiz2fRGFfOU48coMAd-77TGNW7lI27FDQqbA" />
-    <title>GameForge - Download PC Games</title>
+    <meta name="google-site-verification" content="s0h-komVBU6j0aspEu8pg1bReURPac6H2TldzWpUiag" />
+    <title>EpicForge - Download PC Games & Movies</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #050505;
-            color: #e0e0e0;
-        }
-
-        /* Loading Screen Styles */
-        .loader-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #050505;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s ease;
-        }
-
-        .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid #1a1a1a;
-            border-top: 5px solid #00a8ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loader-container h2 {
-            color: #00a8ff;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 18px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-
-        header {
-            background: linear-gradient(90deg, #000428 0%, #004e92 100%);
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #00a8ff;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .site-logo {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            border-radius: 5px;
-        }
-
-        header h1 {
-            color: #ffffff;
-            font-size: 28px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .nav-section {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        nav {
-            display: flex;
-            gap: 20px;
-        }
-
-        nav .tab {
-            color: #a9d6e5;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            position: relative;
-            padding-bottom: 5px;
-            transition: color 0.3s ease;
-            cursor: pointer;
-        }
-
-        nav .tab::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #00a8ff;
-            transition: width 0.3s ease;
-        }
-
-        nav .tab:hover, nav .tab.active {
-            color: #ffffff;
-        }
-
-        nav .tab:hover::after, nav .tab.active::after {
-            width: 100%;
-        }
-
-        #searchBar {
-            padding: 8px 15px;
-            border: 1px solid #00a8ff;
-            border-radius: 20px;
-            background-color: #121212;
-            color: #fff;
-            outline: none;
-            transition: 0.3s;
-            width: 200px;
-        }
-
-        #searchBar:focus {
-            width: 250px;
-            box-shadow: 0 0 10px rgba(0, 168, 255, 0.5);
-            background-color: #1a1a1a;
-        }
-
-        /* Slideshow Styles */
-        .slideshow-container {
-            max-width: 1200px;
-            position: relative;
-            margin: 30px auto;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            border: 1px solid #1a1a1a;
-        }
-
-        .slide { display: none; }
-
-        .slide img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            margin-top: -22px;
-            padding: 16px;
-            color: white;
-            font-weight: bold;
-            font-size: 24px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            background-color: rgba(0,0,0,0.4);
-        }
-
-        .next { right: 0; border-radius: 3px 0 0 3px; }
-        .prev:hover, .next:hover { background-color: rgba(0,168,255,0.8); }
-
-        .text {
-            color: #f2f2f2;
-            font-size: 24px;
-            font-weight: bold;
-            padding: 20px;
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(0, 0, 0, 0.7);
-            border-left: 4px solid #00a8ff;
-            border-radius: 5px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #050505; color: #e0e0e0; }
         
-        .text span {
-            font-size: 16px;
-            color: #00a8ff;
-            font-weight: normal;
-        }
+        /* Navigation & Tabs */
+        header { padding: 20px; text-align: center; background-color: #111; border-bottom: 2px solid #00a8ff; }
+        .tabs { margin-top: 15px; }
+        .tab-btn { background: #222; color: white; border: none; padding: 10px 30px; font-size: 16px; cursor: pointer; border-radius: 5px; margin: 0 5px; transition: 0.3s; }
+        .tab-btn.active, .tab-btn:hover { background: #00a8ff; color: #000; font-weight: bold; }
 
-        .fade { animation: fade 1.5s; }
-        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+        /* Grid */
+        .container { padding: 30px; display: none; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .container.active { display: flex; }
+        .card { background: #151515; border: 1px solid #333; border-radius: 10px; width: 250px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: #00a8ff; }
+        .card img { width: 100%; height: 350px; object-fit: cover; }
+        .card h3 { padding: 15px; font-size: 18px; text-align: center; color: #fff; }
 
-        .container {
-            padding: 20px 40px 40px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Modal / Popup */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 10px; width: 80%; max-width: 800px; max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid #00a8ff; }
+        .close-btn { position: absolute; top: 15px; right: 20px; color: #ff4757; font-size: 30px; cursor: pointer; }
+        .modal-title { color: #00a8ff; margin-bottom: 15px; }
+        .modal-images { display: flex; gap: 10px; overflow-x: auto; margin: 15px 0; }
+        .modal-images img { width: 200px; border-radius: 5px; }
+        .download-btn { display: inline-block; background: #00a8ff; color: #000; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 5px; margin-top: 15px; }
 
-        .container h2 {
-            margin-bottom: 20px;
-            color: #00a8ff;
-            border-left: 4px solid #00a8ff;
-            padding-left: 10px;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .game-card {
-            background-color: #121212;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            border: 1px solid #1a1a1a;
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: #004e92;
-        }
-
-        .game-card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .game-info {
-            padding: 20px;
-        }
-
-        .game-info h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .game-info p {
-            font-size: 14px;
-            color: #aaaaaa;
-            margin-bottom: 15px;
-        }
-
-        /* Modal Popup Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background-color: #0d0d0d;
-            margin: 5% auto;
-            padding: 30px;
-            border: 1px solid #00a8ff;
-            border-radius: 12px;
-            width: 85%;
-            max-width: 900px;
-            position: relative;
-            box-shadow: 0 0 25px rgba(0, 168, 255, 0.4);
-            animation: popupAnim 0.3s ease-out;
-        }
-
-        @keyframes popupAnim {
-            from {opacity: 0; transform: translateY(-30px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-
-        .close-btn {
-            color: #ff3333;
-            float: right;
-            font-size: 32px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #ff6666;
-            transform: scale(1.1);
-        }
-
-        .modal-content h2 {
-            color: #ffffff;
-            border-bottom: 2px solid #004e92;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .modal-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .modal-info h3, .modal-gallery h3 {
-            color: #00a8ff;
-            margin-bottom: 10px;
-        }
-
-        .modal-info p {
-            color: #cccccc;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .modal-info ul {
-            color: #cccccc;
-            list-style-type: square;
-            margin-left: 20px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .gallery-images {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-
-        .gallery-images img {
-            width: 100%;
-            border-radius: 8px;
-            border: 1px solid #1a1a1a;
-        }
-
-        .download-btn {
-            display: inline-block;
-            background-color: #004e92;
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
-            text-align: center;
-        }
-
-        .download-btn:hover {
-            background-color: #00a8ff;
-        }
-
-        @media (max-width: 768px) {
-            .modal-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-                padding: 20px;
-            }
-            .slide img { height: 250px; }
-            .text { font-size: 18px; bottom: 15px; left: 15px; }
-        }
+        /* Welcome Message */
+        .welcome-msg { display: none; position: fixed; top: 20px; right: 20px; background: #00a8ff; color: #000; padding: 15px 25px; border-radius: 5px; font-weight: bold; z-index: 2000; box-shadow: 0 0 10px rgba(0,168,255,0.5); animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     </style>
 </head>
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loader" class="loader-container">
-        <div class="loader-spinner"></div>
-        <h2>Loading GameForge...</h2>
+    <!-- Welcome Message Popup -->
+    <div id="welcomeAlert" class="welcome-msg">
+        🎉 Welcome to EpicForge! Free Games & Movies!
     </div>
 
     <header>
-        <div class="logo-section">
-            <img src="logo.png" alt="Logo" class="site-logo"> 
-            <h1>GameForge</h1>
-        </div>
-        
-        <div class="nav-section">
-            <nav>
-                <a href="#" class="tab active">All</a>
-                <a href="#" class="tab">Action</a>
-                <a href="#" class="tab">RPG</a>
-                <a href="#" class="tab">Racing</a>
-                <a href="#" class="tab">Horror</a>
-            </nav>
-            <input type="text" id="searchBar" placeholder="Search games...">
+        <h1>EpicForge</h1>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('games')">PC Games</button>
+            <button class="tab-btn" onclick="switchTab('movies')">Movies</button>
         </div>
     </header>
 
-    <!-- Slideshow Section -->
-    <div class="slideshow-container">
-        <div class="slide fade">
-            <img src="https://media-rockstargames-com.akamaized.net/tina-uploads/posts/8971851275a3ak/c6a2f0b1aec4009bdc6d67e50fa6824ca995dcf3.jpg" alt="Slide 1">
-            <div class="text">GTA V: play with us<br><span>Join the Community</span></div>
-        </div>
-        <div class="slide fade">
-            <img src="https://tse4.mm.bing.net/th/id/OIP.S8moKtemHoKp6mVwbHX5VQHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Slide 2">
-            <div class="text">Dying Light<br><span>Survive the Night</span></div>
-        </div>
-        <div class="slide fade">
-            <img src="https://images.gog-statics.com/809c14faae9bdd30d35f5a8e75b8abc7227b33aebdd06517f56fe400cb5a24e7.jpg" alt="Slide 3">
-            <div class="text">Sleeping Dogs<br><span>get your revenge</span></div>
-        </div>
+    <!-- Games Section -->
+    <div id="games-section" class="container active"></div>
 
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
+    <!-- Movies Section -->
+    <div id="movies-section" class="container"></div>
 
-    <div class="container">
-        <h2>Latest Games</h2>
-        <div class="games-grid" id="games-container">
-            <!-- Database එකෙන් Games ටික මෙතනට Load වෙයි -->
-        </div>
-    </div>
-
-    <!-- Popup Modal -->
-    <div id="gameModal" class="modal">
+    <!-- Details Modal (Common for both) -->
+    <div id="details-modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2 id="modal-title">Game Title</h2>
-            
-            <div class="modal-grid">
-                <div class="modal-info">
-                    <h3>Description</h3>
-                    <p id="modal-desc">Description goes here...</p>
-                    
-                    <h3>System Requirements</h3>
-                    <ul id="modal-req"></ul>
-                    
-                    <a href="#" id="modal-download" class="download-btn" target="_blank">Download Torrent</a>
-                </div>
-                
-                <div class="modal-gallery">
-                    <h3>In-Game Screenshots</h3>
-                    <div id="modal-images" class="gallery-images"></div>
-                </div>
-            </div>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title" class="modal-title">Title</h2>
+            <p id="modal-desc" style="margin-bottom:15px;"></p>
+            <h4 id="info-title" style="color:#00a8ff;">System Requirements:</h4>
+            <ul id="modal-info" style="margin:10px 0 15px 20px; color:#ccc;"></ul>
+            <div id="modal-images" class="modal-images"></div>
+            <a id="modal-download" href="#" class="download-btn">Download Now</a>
         </div>
     </div>
 
     <script>
-        // Slideshow Logic
-        let slideIndex = 0;
-        let slideTimeout;
-
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("slide");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}
-            if (slides[slideIndex-1]) {
-                slides[slideIndex-1].style.display = "block";
-            }
-            slideTimeout = setTimeout(showSlides, 4000); 
-        }
-
-        function plusSlides(n) {
-            clearTimeout(slideTimeout);
-            showSlideManual(slideIndex += n);
-        }
-
-        function showSlideManual(n) {
-            let i;
-            let slides = document.getElementsByClassName("slide");
-            if (n > slides.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = slides.length}
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            if (slides[slideIndex-1]) {
-                slides[slideIndex-1].style.display = "block";
-            }
-            slideTimeout = setTimeout(showSlides, 4000);
-        }
-
-        // Database (games.json) Games Loading Logic
-        async function loadGames() {
-            try {
-                const response = await fetch('games.json');
-                const data = await response.json();
-                const container = document.getElementById('games-container');
-                container.innerHTML = ''; 
-
-                if(data.games_list) {
-                    data.games_list.forEach(game => {
-                        let galleryLinks = "";
-                        if(game.gallery) {
-                        galleryLinks = game.gallery.map(g => g.img ? g.img : g).join(',');
-                     }
-
-                        let card = document.createElement('div');
-                        card.className = 'game-card';
-                        card.setAttribute('data-category', game.category ? game.category.toLowerCase() : 'action');
-                        card.setAttribute('data-title', game.title);
-                        card.setAttribute('data-desc', game.description);
-                        card.setAttribute('data-req', game.req);
-                        card.setAttribute('data-images', galleryLinks);
-                        card.setAttribute('data-torrent', game.torrent);
-
-                        card.innerHTML = `
-                            <img src="${game.thumbnail}" alt="${game.title}">
-                            <div class="game-info">
-                                <h3>${game.title}</h3>
-                                <p>${game.description}</p>
-                            </div>
-                        `;
-                        container.appendChild(card);
-                    });
-                }
-                
-                setupInteractions();
-
-                // Hide Loading Screen
-                setTimeout(() => {
-                    const loader = document.getElementById('loader');
-                    loader.style.opacity = '0';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                    }, 500);
-                }, 800);
-
-            } catch (error) {
-                console.log("Error loading games:", error);
-                document.getElementById('loader').style.display = 'none';
-            }
-        }
-
-        function setupInteractions() {
-            const searchBar = document.getElementById('searchBar');
-            if(searchBar) {
-                searchBar.addEventListener('keyup', function(e) {
-                    let searchQuery = e.target.value.toLowerCase();
-                    let gameCards = document.querySelectorAll('.game-card');
-                    
-                    gameCards.forEach(card => {
-                        let gameTitle = card.querySelector('h3').innerText.toLowerCase();
-                        if(gameTitle.includes(searchQuery)) {
-                            card.style.display = "block";
-                        } else {
-                            card.style.display = "none";
-                        }
-                    });
-                });
-            }
-
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function(e) {
-                    e.preventDefault(); 
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    let filter = this.innerText.toLowerCase();
-                    let gameCards = document.querySelectorAll('.game-card');
-                    
-                    gameCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = "block";
-                        } else {
-                            card.style.display = "none";
-                        }
-                    });
-                });
-            });
-
-            const modal = document.getElementById("gameModal");
-            const closeBtn = document.querySelector(".close-btn");
-            const gameCards = document.querySelectorAll(".game-card");
-
-            gameCards.forEach(card => {
-                card.addEventListener("click", function() {
-                    document.getElementById("modal-title").innerText = this.getAttribute("data-title");
-                    document.getElementById("modal-desc").innerText = this.getAttribute("data-desc");
-                    document.getElementById("modal-download").href = this.getAttribute("data-torrent");
-
-                    const reqList = document.getElementById("modal-req");
-                    reqList.innerHTML = ""; 
-                    let reqData = this.getAttribute("data-req");
-                    if(reqData) {
-                        reqData.split("|").forEach(item => {
-                            let li = document.createElement("li");
-                            li.innerText = item.trim();
-                            reqList.appendChild(li);
-                        });
-                    }
-
-                    const gallery = document.getElementById("modal-images");
-                    gallery.innerHTML = ""; 
-                    let imgData = this.getAttribute("data-images");
-                    if(imgData) {
-                        imgData.split(",").forEach(imgSrc => {
-                            if(imgSrc.trim() !== "") {
-                                let img = document.createElement("img");
-                                img.src = imgSrc.trim();
-                                gallery.appendChild(img);
-                            }
-                        });
-                    }
-
-                    modal.style.display = "block";
-                });
-            });
-
-            if(closeBtn) {
-                closeBtn.onclick = function() { modal.style.display = "none"; }
-            }
-            window.onclick = function(event) {
-                if (event.target == modal) { modal.style.display = "none"; }
-            }
-        }
-
+        // Show Welcome Message once per session
         window.onload = function() {
-            loadGames();
-            showSlides();
+            if(!sessionStorage.getItem('welcomed')) {
+                let alertBox = document.getElementById('welcomeAlert');
+                alertBox.style.display = 'block';
+                setTimeout(() => { alertBox.style.display = 'none'; }, 4000); // Hides after 4 seconds
+                sessionStorage.setItem('welcomed', 'true');
+            }
+            fetchData();
         };
-    </script>
 
+        // Tab Switching Logic
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.container').forEach(sec => sec.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + '-section').classList.add('active');
+        }
+
+        // Fetch Data from games.json
+        function fetchData() {
+            fetch('games.json')
+                .then(res => res.json())
+                .then(data => {
+                    renderItems(data.games_list || [], 'games-section', 'game');
+                    renderItems(data.movies_list || [], 'movies-section', 'movie');
+                })
+                .catch(err => console.log('Error loading data:', err));
+        }
+
+        // Render Cards
+        function renderItems(items, containerId, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            items.forEach(item => {
+                let infoData = type === 'game' ? item.req : item.actors;
+                let galleryLinks = "";
+                if(item.gallery) {
+                    galleryLinks = item.gallery.map(g => g.img ? g.img : g).join(',');
+                }
+
+                let card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${item.thumbnail}" alt="${item.title}">
+                    <h3>${item.title}</h3>
+                `;
+                // Click Event to open Modal
+                card.onclick = () => openModal(item.title, item.description, infoData, galleryLinks, item.torrent, type);
+                container.appendChild(card);
+            });
+        }
+
+        // Open Modal
+        function openModal(title, desc, info, images, torrent, type) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            
+            // Change title based on Game or Movie
+            document.getElementById('info-title').innerText = type === 'game' ? "System Requirements:" : "Main Actors:";
+            
+            let infoList = document.getElementById('modal-info');
+            infoList.innerHTML = '';
+            if(info) {
+                info.split('|').forEach(line => {
+                    let li = document.createElement('li');
+                    li.innerText = line.trim();
+                    infoList.appendChild(li);
+                });
+            }
+
+            let gallery = document.getElementById('modal-images');
+            gallery.innerHTML = '';
+            if(images) {
+                images.split(',').forEach(imgSrc => {
+                    if(imgSrc.trim() !== '') {
+                        let img = document.createElement('img');
+                        img.src = imgSrc.trim();
+                        gallery.appendChild(img);
+                    }
+                });
+            }
+
+            document.getElementById('modal-download').href = torrent;
+            document.getElementById('details-modal').style.display = 'flex';
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('details-modal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
