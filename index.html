@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="0g1eHTTUiz2fRGFfOU48coMAd-77TGNW7lI27FDQqbA" />
-    <title>GameForge - Download PC Games</title>
+    <title>GameForge - Download PC Games & Movies</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <style>
@@ -19,6 +19,10 @@
             background-color: #050505;
             color: #e0e0e0;
         }
+
+        /* Welcome Message */
+        .welcome-msg { display: none; position: fixed; top: 20px; right: 20px; background: #004e92; color: #fff; padding: 15px 25px; border-radius: 5px; font-weight: bold; z-index: 99999; box-shadow: 0 0 15px rgba(0,168,255,0.5); animation: slideIn 0.5s ease; border-left: 5px solid #00a8ff; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
         /* Loading Screen Styles */
         .loader-container {
@@ -220,6 +224,11 @@
             margin: 0 auto;
         }
 
+        /* Main Toggle Tabs for Games and Movies */
+        .main-tabs { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid #1a1a1a; padding-bottom: 15px; }
+        .main-tab-btn { background: #121212; color: #aaa; border: 1px solid #333; padding: 10px 30px; font-size: 16px; cursor: pointer; border-radius: 5px; transition: 0.3s; font-weight: bold; }
+        .main-tab-btn.active, .main-tab-btn:hover { background: #004e92; color: #fff; border-color: #00a8ff; }
+
         .container h2 {
             margin-bottom: 20px;
             color: #00a8ff;
@@ -293,6 +302,8 @@
             position: relative;
             box-shadow: 0 0 25px rgba(0, 168, 255, 0.4);
             animation: popupAnim 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes popupAnim {
@@ -379,20 +390,20 @@
         }
 
         @media (max-width: 768px) {
-            .modal-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-content {
-                width: 95%;
-                margin: 10% auto;
-                padding: 20px;
-            }
+            .modal-grid { grid-template-columns: 1fr; }
+            .modal-content { width: 95%; margin: 10% auto; padding: 20px; }
             .slide img { height: 250px; }
             .text { font-size: 18px; bottom: 15px; left: 15px; }
+            header { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Welcome Message -->
+    <div id="welcomeAlert" class="welcome-msg">
+        🎉 Welcome to GameForge! Premium Games & Movies.
+    </div>
 
     <!-- Loading Screen -->
     <div id="loader" class="loader-container">
@@ -413,8 +424,10 @@
                 <a href="#" class="tab">RPG</a>
                 <a href="#" class="tab">Racing</a>
                 <a href="#" class="tab">Horror</a>
+                <a href="#" class="tab">Sci-Fi</a>
+                <a href="#" class="tab">Thriller</a>
             </nav>
-            <input type="text" id="searchBar" placeholder="Search games...">
+            <input type="text" id="searchBar" placeholder="Search games & movies...">
         </div>
     </header>
 
@@ -438,10 +451,19 @@
     </div>
 
     <div class="container">
-        <h2>Latest Games</h2>
-        <div class="games-grid" id="games-container">
-            <!-- Database එකෙන් Games ටික මෙතනට Load වෙයි -->
+        <!-- New Main Tabs for Games and Movies -->
+        <div class="main-tabs">
+            <button class="main-tab-btn active" onclick="switchMainTab('games')">🎮 PC Games</button>
+            <button class="main-tab-btn" onclick="switchMainTab('movies')">🎬 Movies</button>
         </div>
+
+        <h2 id="section-title">Latest Games</h2>
+        
+        <!-- Games Grid -->
+        <div class="games-grid" id="games-container"></div>
+        
+        <!-- Movies Grid (Hidden by Default) -->
+        <div class="games-grid" id="movies-container" style="display: none;"></div>
     </div>
 
     <!-- Popup Modal -->
@@ -455,14 +477,14 @@
                     <h3>Description</h3>
                     <p id="modal-desc">Description goes here...</p>
                     
-                    <h3>System Requirements</h3>
+                    <h3 id="modal-info-title">System Requirements</h3>
                     <ul id="modal-req"></ul>
                     
                     <a href="#" id="modal-download" class="download-btn" target="_blank">Download Torrent</a>
                 </div>
                 
                 <div class="modal-gallery">
-                    <h3>In-Game Screenshots</h3>
+                    <h3>Screenshots</h3>
                     <div id="modal-images" class="gallery-images"></div>
                 </div>
             </div>
@@ -470,6 +492,32 @@
     </div>
 
     <script>
+        // Welcome Message Logic
+        function checkWelcomeMessage() {
+            if(!sessionStorage.getItem('welcomed')) {
+                let alertBox = document.getElementById('welcomeAlert');
+                alertBox.style.display = 'block';
+                setTimeout(() => { alertBox.style.display = 'none'; }, 4500);
+                sessionStorage.setItem('welcomed', 'true');
+            }
+        }
+
+        // Main Tab Switch (Games vs Movies)
+        function switchMainTab(tab) {
+            document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if(tab === 'games') {
+                document.getElementById('games-container').style.display = 'grid';
+                document.getElementById('movies-container').style.display = 'none';
+                document.getElementById('section-title').innerText = 'Latest Games';
+            } else {
+                document.getElementById('games-container').style.display = 'none';
+                document.getElementById('movies-container').style.display = 'grid';
+                document.getElementById('section-title').innerText = 'Latest Movies';
+            }
+        }
+
         // Slideshow Logic
         let slideIndex = 0;
         let slideTimeout;
@@ -507,38 +555,57 @@
             slideTimeout = setTimeout(showSlides, 4000);
         }
 
-        // Database (games.json) Games Loading Logic
+        // Generate Card HTML
+        function createCardHTML(item, type) {
+            let galleryLinks = "";
+            if(item.gallery) {
+                galleryLinks = item.gallery.map(g => g.img ? g.img : g).join(',');
+            }
+
+            let card = document.createElement('div');
+            card.className = 'game-card';
+            card.setAttribute('data-type', type);
+            card.setAttribute('data-category', item.category ? item.category.toLowerCase() : '');
+            card.setAttribute('data-title', item.title);
+            card.setAttribute('data-desc', item.description);
+            card.setAttribute('data-images', galleryLinks);
+            card.setAttribute('data-torrent', item.torrent);
+            
+            if(type === 'game') card.setAttribute('data-req', item.req || '');
+            if(type === 'movie') card.setAttribute('data-actors', item.actors || '');
+
+            card.innerHTML = `
+                <img src="${item.thumbnail}" alt="${item.title}">
+                <div class="game-info">
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                </div>
+            `;
+            return card;
+        }
+
+        // Database (games.json) Loading Logic
         async function loadGames() {
             try {
                 const response = await fetch('games.json');
                 const data = await response.json();
-                const container = document.getElementById('games-container');
-                container.innerHTML = ''; 
+                
+                const gamesContainer = document.getElementById('games-container');
+                const moviesContainer = document.getElementById('movies-container');
+                gamesContainer.innerHTML = ''; 
+                moviesContainer.innerHTML = '';
 
+                // Load Games Array
                 if(data.games_list) {
                     data.games_list.forEach(game => {
-                        let galleryLinks = "";
-                        if(game.gallery) {
-                        galleryLinks = game.gallery.map(g => g.img ? g.img : g).join(',');
-                     }
+                        gamesContainer.appendChild(createCardHTML(game, 'game'));
+                    });
+                }
 
-                        let card = document.createElement('div');
-                        card.className = 'game-card';
-                        card.setAttribute('data-category', game.category ? game.category.toLowerCase() : 'action');
-                        card.setAttribute('data-title', game.title);
-                        card.setAttribute('data-desc', game.description);
-                        card.setAttribute('data-req', game.req);
-                        card.setAttribute('data-images', galleryLinks);
-                        card.setAttribute('data-torrent', game.torrent);
-
-                        card.innerHTML = `
-                            <img src="${game.thumbnail}" alt="${game.title}">
-                            <div class="game-info">
-                                <h3>${game.title}</h3>
-                                <p>${game.description}</p>
-                            </div>
-                        `;
-                        container.appendChild(card);
+                // Load Movies Array
+                if(data.movies_list) {
+                    data.movies_list.forEach(movie => {
+                        moviesContainer.appendChild(createCardHTML(movie, 'movie'));
                     });
                 }
                 
@@ -554,7 +621,7 @@
                 }, 800);
 
             } catch (error) {
-                console.log("Error loading games:", error);
+                console.log("Error loading content:", error);
                 document.getElementById('loader').style.display = 'none';
             }
         }
@@ -588,7 +655,7 @@
                     let gameCards = document.querySelectorAll('.game-card');
                     
                     gameCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
                             card.style.display = "block";
                         } else {
                             card.style.display = "none";
@@ -600,6 +667,7 @@
             const modal = document.getElementById("gameModal");
             const closeBtn = document.querySelector(".close-btn");
             const gameCards = document.querySelectorAll(".game-card");
+            const reqTitle = document.getElementById("modal-info-title");
 
             gameCards.forEach(card => {
                 card.addEventListener("click", function() {
@@ -607,11 +675,15 @@
                     document.getElementById("modal-desc").innerText = this.getAttribute("data-desc");
                     document.getElementById("modal-download").href = this.getAttribute("data-torrent");
 
+                    let type = this.getAttribute("data-type");
+                    let infoData = type === 'movie' ? this.getAttribute("data-actors") : this.getAttribute("data-req");
+                    
+                    reqTitle.innerText = type === 'movie' ? "Main Actors" : "System Requirements";
+
                     const reqList = document.getElementById("modal-req");
                     reqList.innerHTML = ""; 
-                    let reqData = this.getAttribute("data-req");
-                    if(reqData) {
-                        reqData.split("|").forEach(item => {
+                    if(infoData) {
+                        infoData.split("|").forEach(item => {
                             let li = document.createElement("li");
                             li.innerText = item.trim();
                             reqList.appendChild(li);
@@ -644,6 +716,7 @@
         }
 
         window.onload = function() {
+            checkWelcomeMessage();
             loadGames();
             showSlides();
         };
