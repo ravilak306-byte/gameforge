@@ -1,6 +1,8 @@
 backend:
   name: git-gateway
   branch: main
+  identity_url: "https://gameforge-games.netlify.app/.netlify/identity"
+  gateway_url: "https://gameforge-games.netlify.app/.netlify/git"
 media_folder: "images"
 public_folder: "images"
 collections:
