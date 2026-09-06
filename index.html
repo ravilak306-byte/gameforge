@@ -519,8 +519,8 @@
                     data.games_list.forEach(game => {
                         let galleryLinks = "";
                         if(game.gallery) {
-                            galleryLinks = game.gallery.map(g => g.img).join(',');
-                        }
+                        galleryLinks = game.gallery.map(g => g.img ? g.img : g).join(',');
+                     }
 
                         let card = document.createElement('div');
                         card.className = 'game-card';
