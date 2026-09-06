@@ -1,12 +1,137 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GameForge Admin Panel</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EpicForge - Admin Panel</title>
+    <!-- Netlify Identity Widget for Login -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  </head>
-  <body>
-    <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
-  </body>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f0f0f; color: #fff; padding: 20px; }
+        
+        .admin-container { max-width: 800px; margin: 0 auto; background: #1a1a1a; padding: 30px; border-radius: 10px; border: 1px solid #333; }
+        h1 { text-align: center; color: #00a8ff; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #ccc; font-weight: bold; }
+        input[type="text"], input[type="url"], select, textarea { 
+            width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff; 
+        }
+        textarea { resize: vertical; height: 100px; }
+        
+        .btn-submit { width: 100%; padding: 12px; background: #00a8ff; color: #000; font-size: 16px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-submit:hover { background: #008be6; }
+
+        .auth-section { text-align: right; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-section">
+        <div data-netlify-identity-menu></div>
+    </div>
+
+    <div class="admin-container">
+        <h1>Control Panel - Add Content</h1>
+        
+        <form id="adminForm">
+            <div class="form-group">
+                <label>Item Type (Game or Movie):</label>
+                <select id="itemType" onchange="changeLabels()">
+                    <option value="game">PC Game</option>
+                    <option value="movie">Movie</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" id="title" placeholder="e.g. GTA V or Inception" required>
+            </div>
+
+            <div class="form-group">
+                <label>Category:</label>
+                <input type="text" id="category" placeholder="e.g. Action, Sci-Fi, RPG" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea id="description" placeholder="Enter short description..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label id="infoLabel">System Requirements (Separate by | ):</label>
+                <input type="text" id="itemInfo" placeholder="e.g. OS: Win 10 | RAM: 8GB" required>
+            </div>
+
+            <div class="form-group">
+                <label>Thumbnail Image URL:</label>
+                <input type="url" id="thumbnail" placeholder="e.g. https://link.com/image.jpg" required>
+            </div>
+
+            <div class="form-group">
+                <label>Gallery Images (Separate multiple links by comma , ):</label>
+                <input type="text" id="gallery" placeholder="link1.jpg, link2.jpg">
+            </div>
+
+            <div class="form-group">
+                <label>Download Link (Torrent / Direct):</label>
+                <input type="text" id="downloadLink" placeholder="e.g. https://link.com/file.torrent" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Add to Website</button>
+        </form>
+    </div>
+
+    <script>
+        // Label වෙනස් කරන Function එක
+        function changeLabels() {
+            let type = document.getElementById("itemType").value;
+            let infoLabel = document.getElementById("infoLabel");
+            let itemInfo = document.getElementById("itemInfo");
+
+            if (type === "movie") {
+                infoLabel.innerText = "Main Actors (Separate by | ):";
+                itemInfo.placeholder = "e.g. Tom Cruise | Brad Pitt";
+            } else {
+                infoLabel.innerText = "System Requirements (Separate by | ):";
+                itemInfo.placeholder = "e.g. OS: Win 10 | RAM: 8GB";
+            }
+        }
+
+        // Form Submit
+        document.getElementById("adminForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let type = document.getElementById("itemType").value;
+            let galleryRaw = document.getElementById("gallery").value;
+            let galleryArray = galleryRaw.split(',').map(link => link.trim()).filter(link => link !== "");
+
+            let newItem = {
+                title: document.getElementById("title").value,
+                category: document.getElementById("category").value,
+                description: document.getElementById("description").value,
+                thumbnail: document.getElementById("thumbnail").value,
+                gallery: galleryArray,
+                torrent: document.getElementById("downloadLink").value
+            };
+
+            if (type === "movie") {
+                newItem.actors = document.getElementById("itemInfo").value;
+            } else {
+                newItem.req = document.getElementById("itemInfo").value;
+            }
+
+            console.log("Ready to push data:", newItem);
+            
+            // ----------------------------------------------------
+            // ඔයා කලින් GitHub එකට ඩේටා සේව් වෙන්න හදපු API Call එක
+            // (fetch code එක) තියෙනවා නම්, ඒක මෙතනට දාන්න.
+            // ----------------------------------------------------
+
+            alert("Item processing! Check console if data is ready to be sent.");
+        });
+    </script>
+</body>
 </html>
